@@ -116,9 +116,18 @@ document.addEventListener('DOMContentLoaded', function() {
     viewDetailsLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const productName = this.closest('.product-card').querySelector('h4').textContent;
-            console.log('View details for:', productName);
-            // Add navigation to product detail page
+            // Navigate to product detail page
+            window.location.href = 'product-detail.html';
+        });
+    });
+    
+    // Product card clicks (navigate to detail page)
+    productCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't navigate if clicking on wishlist button
+            if (!e.target.closest('.wishlist-btn')) {
+                window.location.href = 'product-detail.html';
+            }
         });
     });
     
