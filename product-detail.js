@@ -52,6 +52,82 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Quantity controls
+    const quantityInput = document.getElementById('quantity');
+    const minusBtn = document.querySelector('.quantity-btn.minus');
+    const plusBtn = document.querySelector('.quantity-btn.plus');
+    
+    minusBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    
+    plusBtn.addEventListener('click', function() {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue < 999) {
+            quantityInput.value = currentValue + 1;
+        }
+    });
+    
+    // Size selector
+    const sizeDropdown = document.getElementById('size');
+    sizeDropdown.addEventListener('change', function() {
+        console.log('Size selected:', this.value);
+    });
+    
+    // Color selector
+    const colorOptions = document.querySelectorAll('.color-option');
+    colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            colorOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            console.log('Color selected:', this.getAttribute('data-color'));
+        });
+    });
+    
+    // Add to cart functionality
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    addToCartBtn.addEventListener('click', function() {
+        const quantity = quantityInput.value;
+        const size = sizeDropdown.value;
+        const selectedColor = document.querySelector('.color-option.active').getAttribute('data-color');
+        
+        console.log('Added to cart:', {
+            product: 'Mens Long Sleeve T-shirt',
+            quantity: quantity,
+            size: size,
+            color: selectedColor
+        });
+        
+        // Show success message
+        this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+        this.style.background = '#28a745';
+        
+        setTimeout(() => {
+            this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+            this.style.background = '#4285f4';
+        }, 2000);
+    });
+    
+    // Buy now functionality
+    const buyNowBtn = document.querySelector('.buy-now-btn');
+    buyNowBtn.addEventListener('click', function() {
+        const quantity = quantityInput.value;
+        const size = sizeDropdown.value;
+        const selectedColor = document.querySelector('.color-option.active').getAttribute('data-color');
+        
+        console.log('Buy now clicked:', {
+            product: 'Mens Long Sleeve T-shirt',
+            quantity: quantity,
+            size: size,
+            color: selectedColor
+        });
+        
+        alert('Redirecting to checkout...');
+    });
+    
     // Send inquiry button
     const sendInquiryBtn = document.querySelector('.send-inquiry-btn');
     sendInquiryBtn.addEventListener('click', function() {
