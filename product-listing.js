@@ -124,10 +124,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Product card clicks (navigate to detail page)
     productCards.forEach(card => {
         card.addEventListener('click', function(e) {
-            // Don't navigate if clicking on wishlist button
-            if (!e.target.closest('.wishlist-btn')) {
+            // Don't navigate if clicking on wishlist button or add to cart button
+            if (!e.target.closest('.wishlist-btn') && !e.target.closest('.add-to-cart-btn')) {
                 window.location.href = 'product-detail.html';
             }
+        });
+    });
+    
+    // Add to Cart functionality
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card click event
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('h4').textContent;
+            const productPrice = productCard.querySelector('.current-price').textContent;
+            
+            console.log('Added to cart:', { name: productName, price: productPrice });
+            
+            // Visual feedback
+            const originalText = this.textContent;
+            this.textContent = 'Added!';
+            this.style.background = '#28a745';
+            
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.background = '#4285f4';
+            }, 1500);
+            
+            // You can add actual cart functionality here
+            // For example: addToCart({ name: productName, price: productPrice });
         });
     });
     
