@@ -567,6 +567,31 @@ body {
     text-decoration: underline;
 }
 
+.add-to-cart-btn {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.3s;
+    margin-top: 8px;
+    align-self: flex-start;
+}
+
+.add-to-cart-btn:hover {
+    background: #3367d6;
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 8px;
+}
+
 /* Pagination */
 .pagination {
     display: flex;
