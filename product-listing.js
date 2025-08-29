@@ -1,5 +1,50 @@
 // Product listing functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    if (mobileMenuToggle && mainNav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            
+            if (mainNav.classList.contains('mobile-hidden')) {
+                mainNav.classList.remove('mobile-hidden');
+                mainNav.classList.add('mobile-open');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                mainNav.classList.add('mobile-hidden');
+                mainNav.classList.remove('mobile-open');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.header') && mainNav.classList.contains('mobile-open')) {
+                mainNav.classList.add('mobile-hidden');
+                mainNav.classList.remove('mobile-open');
+                mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+                mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when window is resized to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('mobile-hidden', 'mobile-open');
+                mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+                mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+            } else {
+                if (!mainNav.classList.contains('mobile-open')) {
+                    mainNav.classList.add('mobile-hidden');
+                }
+            }
+        });
+    }
+    
     // Filter functionality
     const filterItems = document.querySelectorAll('.filter-item');
     const checkboxes = document.querySelectorAll('.checkbox-item input');
