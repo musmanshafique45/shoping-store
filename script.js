@@ -1,6 +1,9 @@
-// Mobile menu toggle
+// Apply white theme by default
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu functionality
+    // Apply white theme immediately
+    applyWhiteTheme();
+    
+    // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     
@@ -184,6 +187,85 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Helper functions
+
+/**
+ * Apply white theme to the entire website
+ * Sets background to white and text to dark gray by default
+ */
+function applyWhiteTheme() {
+    // Check if theme is already applied
+    if (document.getElementById('white-theme-style')) {
+        return;
+    }
+    
+    const whiteTheme = document.createElement('style');
+    whiteTheme.id = 'white-theme-style';
+    whiteTheme.textContent = `
+        * {
+            background-color: white !important;
+            color: #333333 !important;
+        }
+        
+        body, html {
+            background-color: white !important;
+            color: #333333 !important;
+        }
+        
+        a {
+            color: #0066cc !important;
+        }
+        
+        a:hover {
+            color: #004499 !important;
+        }
+        
+        button, input[type="button"], .btn {
+            background-color: #f0f0f0 !important;
+            color: #333333 !important;
+            border-color: #cccccc !important;
+        }
+        
+        input, textarea, select {
+            background-color: #ffffff !important;
+            color: #333333 !important;
+            border-color: #cccccc !important;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #999999 !important;
+        }
+    `;
+    
+    document.head.appendChild(whiteTheme);
+    console.log('White theme applied successfully!');
+    
+    // Save preference to localStorage
+    localStorage.setItem('whiteTheme', 'enabled');
+}
+
+/**
+ * Remove white theme and restore default
+ */
+function removeWhiteTheme() {
+    const themeStyle = document.getElementById('white-theme-style');
+    if (themeStyle) {
+        themeStyle.remove();
+        localStorage.removeItem('whiteTheme');
+        console.log('White theme removed!');
+    }
+}
+
+/**
+ * Toggle white theme on/off
+ */
+function toggleWhiteTheme() {
+    if (localStorage.getItem('whiteTheme') === 'enabled') {
+        removeWhiteTheme();
+    } else {
+        applyWhiteTheme();
+    }
+}
+
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
